@@ -20,3 +20,4 @@ var/SymfonyRequirements.php
 var/cache/.gitkeep
 var/logs/.gitkeep
 var/sessions/
+/node_modules/
