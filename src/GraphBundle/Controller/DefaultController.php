@@ -2,6 +2,8 @@
 
 namespace GraphBundle\Controller;
 
+use AppBundle\Manager\ExpenseByCategoryInYearManager;
+use AppBundle\Manager\OperationByMonthInYearManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -20,13 +22,36 @@ class DefaultController extends Controller
      */
     public function byYearAction()
     {
-        return $this->render('GraphBundle:Default:byYear.html.twig');
+        $manager = new OperationByMonthInYearManager($this->getDoctrine());
+
+        $allColumns = $manager->getColumnsCategories();
+
+        $allData = $manager->getExpenseGroupByCategory();
+
+        $option = $manager->getOptionForGraphExpenseByCategory($allColumns, $allData);
+
+        return $this->render('GraphBundle:Default:byYear.html.twig', [
+            'option' => $option
+        ]);
     }
+
     /**
      * @Route("/by-categories", name="by-categories")
      */
     public function byCategoriesAction()
     {
-        return $this->render('GraphBundle:Default:byCategories.html.twig');
+        $manager = new ExpenseByCategoryInYearManager($this->getDoctrine());
+
+        $allColumns = $manager->getColumnsCategories();
+
+        $allData = $manager->getExpenseGroupByCategory();
+
+        $option = $manager->getOptionForGraphExpenseByCategory($allColumns, $allData);
+
+
+        return $this->render('GraphBundle:Default:byCategories.html.twig', [
+            'option' => $option
+        ]);
     }
+
 }

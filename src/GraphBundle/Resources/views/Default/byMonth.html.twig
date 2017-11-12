@@ -1,95 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>ECharts</title>
-    <!-- including ECharts file -->
-    <script src="{{ asset('libs/echarts.common.min.js') }}"></script></head>
-<body>
-<!-- prepare a DOM container with width and height -->
-<div id="main" style="width: 600px;height:400px;"></div>
-<script type="text/javascript">
-    // based on prepared DOM, initialize echarts instance
-    var myChart = echarts.init(document.getElementById('main'));
+{% extends "@EasyAdmin/default/layout.html.twig" %}
 
-    // specify chart configuration item and data
-    var option = {
-        title: {
-            text: 'Dépence',
-            subtext: 'Juin 2014',
-            x: 'center'
-        },
-        color: ['#d5dadb'],
-        tooltip : {
-            trigger: 'axis',
-            axisPointer : {
-                type : 'shadow'
-            }
-        },
-        legend: {
-            data:['Catégories']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type : 'value',
-            axisLine: {show: false},
-            axisLabel: {show: false},
-            axisTick: {show: false},
-            splitLine: {lineStyle:{type:'dashed'}}
+{% block main %}
+    <!-- prepare a DOM container with width and height -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+{% endblock main %}
+{% block body_javascript %}
+    <script type="text/javascript">
+        $('document').ready(function () {
+            // based on prepared DOM, initialize echarts instance
+            var myChart = echarts.init(document.getElementById('main'));
 
-        },
-        yAxis : [
-            {
-                type : 'category',
-                data: ["Alimentation","Soin personnel","Logement"],
-                axisLine: {show: false},
-                axisTick: {show: false}
-            }
-        ],
-        series: [{
-            type: 'bar',
-            label: {
-                normal: {
-                    show: true
-                }
-            },
-            data: [
-                {
-                    value:5,
-                    itemStyle: {
-                        normal: {
-                            color: '#c0504d'
-                        }
+            // specify chart configuration item and data
+            var option = {
+                title: {
+                    text: 'Dépence',
+                    subtext: 'Juin 2014',
+                    x: 'center'
+                },
+                color: ['#d5dadb'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
                     }
                 },
-                {
-                    value:20,
-                    itemStyle: {
-                        normal: {
-                            color: '#4f81bd'
-                        }
-                    }
+                legend: {
+                    data: ['Catégories']
                 },
-                {
-                    value:36,
-                    itemStyle: {
-                        normal: {
-                            color: '#9bbb59'
-                        }
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    axisLine: {show: false},
+                    axisLabel: {show: false},
+                    axisTick: {show: false},
+                    splitLine: {lineStyle: {type: 'dashed'}}
+
+                },
+                yAxis: [
+                    {
+                        type: 'category',
+                        data: ['Alimentation', 'Soin personnel', 'Logement'],
+                        axisLine: {show: false},
+                        axisTick: {show: false}
                     }
-                }
-            ]
-        }]
-    };
+                ],
+                series: [{
+                    type: 'bar',
+                    label: {
+                        normal: {
+                            show: true
+                        }
+                    },
+                    data: [
+                        {
+                            value: 5,
+                            itemStyle: {
+                                normal: {
+                                    color: '#c0504d'
+                                }
+                            }
+                        },
+                        {
+                            value: 20,
+                            itemStyle: {
+                                normal: {
+                                    color: '#4f81bd'
+                                }
+                            }
+                        },
+                        {
+                            value: 36,
+                            itemStyle: {
+                                normal: {
+                                    color: '#9bbb59'
+                                }
+                            }
+                        }
+                    ]
+                }]
+            };
 
-    // use configuration item and data specified to show chart
-    myChart.setOption(option);
+            // use configuration item and data specified to show chart
+            myChart.setOption(option);
+        });
+    </script>
 
-</script>
-</body>
-</html>
+{% endblock %}

@@ -1,75 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>ECharts</title>
-    <!-- including ECharts file -->
-    <script src="{{ asset('libs/echarts.common.min.js') }}"></script></head>
-<body>
-<!-- prepare a DOM container with width and height -->
-<div id="main" style="width: 600px;height:400px;"></div>
-<script type="text/javascript">
-    // based on prepared DOM, initialize echarts instance
-    var myChart = echarts.init(document.getElementById('main'));
+{% extends "@EasyAdmin/default/layout.html.twig" %}
 
-    // specify chart configuration item and data
-    option = {
-        title : {
-            text: 'Dépences par catégories',
-            subtext: '2014',
-            x: 'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['Alimentation','Soin personnel','Logement']
-        },
-        series : [
-            {
-                name: 'lala',
-                type: 'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
-                data:[
-                    {
-                        value:335,
-                        name:'Alimentation',
-                        itemStyle: {
-                            normal: {
-                                color: '#c0504d'
-                            }
-                        }
-                    },
-                    {
-                        value:310,
-                        name:'Soin personnel',
-                        itemStyle: {
-                        normal: {
-                            color: '#4f81bd'
-                        }
-                    }
-                    },
-                    {
-                        value:234,
-                        name:'Logement',
-                        itemStyle: {
-                            normal: {
-                                color: '#9bbb59'
-                            }
-                        }
-                    }
-                ]
-            }
-        ]
-    };
-
-    // use configuration item and data specified to show chart
-    myChart.setOption(option);
-
-</script>
-</body>
-</html>
+{% block main %}
+    <!-- prepare a DOM container with width and height -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+{% endblock main %}
+{% block body_javascript %}
+    <script type="text/javascript">
+        $('document').ready(function () {
+            // based on prepared DOM, initialize echarts instance
+            var myChart = echarts.init(document.getElementById('main'));
+            // use configuration item and data specified to show chart
+            myChart.setOption({{ option|json_encode|raw }});
+        });
+    </script>
+{% endblock %}

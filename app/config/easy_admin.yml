@@ -1,0 +1,49 @@
+easy_admin:
+    site_name: 'Budget'
+    design:
+      assets:
+        js:
+          - libs/datetimepicker/js/bootstrap-datepicker.min.js
+          - assets/js/initDatePicker.js
+          - libs/echarts.common.min.js
+        css:
+          - libs/datetimepicker/css/bootstrap-datepicker.min.css
+      menu:
+        - { entity: 'Category', label: 'Catégories', icon: 'tag' }
+        - { entity: 'Operation', label: 'Opérations', icon: 'eur' }
+        - label: 'Graphiques'
+          icon: 'bar-chart'
+          children:
+            - {label: 'Dépence par ans', route: 'by-year', icon: 'line-chart'}
+            - {label: 'Dépence par mois', route: 'by-month', icon: 'bar-chart'}
+            - {label: 'Courbes des dépences', route: 'by-categories', icon: 'pie-chart'}
+    entities:
+        Category :
+            label : 'Catégories'
+            class: AppBundle\Entity\Category
+            list :
+                fields:
+                    - {property: title, label: Categorie}
+                    - {property: parentId, label: Categorie Parente}
+            form :
+                fields:
+                    - {property: title, label: Categorie}
+                    - {property: parentId, label: Categorie Parente}
+        Operation:
+            label: Operations
+            class: AppBundle\Entity\Operation
+            list :
+              fields:
+                - {property: ticketDate, label: Date du ticket}
+                - {property: bankDate, label: Date de la banque}
+                - {property: amound, label: Montant}
+                - {property: category, label: Catégorie}
+                - {property: reference, label: Référence}
+                - {property: comment, label: Commentaire}
+            form :
+              fields:
+                - {property: ticketDate, label: Date du ticket, type_options: {'widget': 'single_text', 'format': 'dd/MM/yyyy', 'attr': {'class': 'datepicker'}} }
+                - {property: bankDate, label: Date de la banque, type_options: {'widget': 'single_text', 'format': 'dd/MM/yyyy', 'attr': {'class': 'datepicker'}}}
+                - {property: amound, label: Montant}
+                - {property: reference, label: Référence}
+                - {property: comment, label: Commentaire}
